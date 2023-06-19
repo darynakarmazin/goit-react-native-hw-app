@@ -6,6 +6,10 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
 } from "react-native";
 
 export const LoginScreen = () => {
@@ -25,36 +29,44 @@ export const LoginScreen = () => {
         resizeMode="cover"
         style={styles.image}
       />
-      <View style={styles.form}>
-        <Text style={styles.title}>Увійти</Text>
-        <View style={styles.inputsList}>
-          <TextInput
-            onFocus={() => onInputActive("email")}
-            onBlur={onInputBlur}
-            style={[
-              styles.input,
-              isInputActive === "email" && styles.inputActive,
-            ]}
-            placeholder="Адреса електронної пошти"
-          />
-          <TextInput
-            onFocus={() => onInputActive("password")}
-            onBlur={onInputBlur}
-            style={[
-              styles.input,
-              isInputActive === "password" && styles.inputActive,
-            ]}
-            placeholder="Пароль"
-          />
-        </View>
-        <TouchableOpacity style={styles.btnRegister}>
-          <Text style={styles.textRegister}>Увійти</Text>
-        </TouchableOpacity>
-        <Text style={styles.textLogin}>
-          Немає акаунту?{" "}
-          <Text style={styles.textLoginLink}>Зареєструватися</Text>
-        </Text>
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? -165 : -165}
+        >
+          <View style={styles.form}>
+            <Text style={styles.title}>Увійти</Text>
+            <View style={styles.inputsList}>
+              <TextInput
+                onFocus={() => onInputActive("email")}
+                onBlur={onInputBlur}
+                style={[
+                  styles.input,
+                  isInputActive === "email" && styles.inputActive,
+                ]}
+                placeholder="Адреса електронної пошти"
+              />
+              <TextInput
+                onFocus={() => onInputActive("password")}
+                onBlur={onInputBlur}
+                style={[
+                  styles.input,
+                  isInputActive === "password" && styles.inputActive,
+                ]}
+                placeholder="Пароль"
+              />
+            </View>
+            <TouchableOpacity style={styles.btnRegister}>
+              <Text style={styles.textRegister}>Увійти</Text>
+            </TouchableOpacity>
+            <Text style={styles.textLogin}>
+              Немає акаунту?{" "}
+              <Text style={styles.textLoginLink}>Зареєструватися</Text>
+            </Text>
+          </View>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
