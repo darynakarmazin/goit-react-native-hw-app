@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
     paddingTop: 92,
+    paddingBottom: 45,
   },
 
   avatar: {
@@ -146,6 +147,5 @@ const styles = StyleSheet.create({
   textLogin: {
     color: "#1B4371",
     textAlign: "center",
-    marginBottom: 45,
   },
 });
