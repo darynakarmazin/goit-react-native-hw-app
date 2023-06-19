@@ -12,7 +12,7 @@ export const LoginScreen = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../img/photo-bg.png")}
+        source={require("../assets/photo-bg.png")}
         resizeMode="cover"
         style={styles.image}
       />
@@ -28,7 +28,10 @@ export const LoginScreen = () => {
         <TouchableOpacity style={styles.btnRegister}>
           <Text style={styles.textRegister}>Увійти</Text>
         </TouchableOpacity>
-        <Text style={styles.textLogin}>Немає акаунту? Зареєструватися</Text>
+        <Text style={styles.textLogin}>
+          Немає акаунту?{" "}
+          <Text style={styles.textLoginLink}>Зареєструватися</Text>
+        </Text>
       </View>
     </View>
   );
@@ -106,5 +109,9 @@ const styles = StyleSheet.create({
     color: "#1B4371",
     textAlign: "center",
     marginBottom: 45,
+  },
+
+  textLoginLink: {
+    textDecorationLine: "underline",
   },
 });

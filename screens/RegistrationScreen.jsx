@@ -12,7 +12,7 @@ export const RegistrationScreen = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../img/photo-bg.png")}
+        source={require("../assets/photo-bg.png")}
         resizeMode="cover"
         style={styles.image}
       />
@@ -20,7 +20,10 @@ export const RegistrationScreen = () => {
         <View style={styles.avatar}>
           <Image />
           <TouchableOpacity style={styles.btnAddAvatar}>
-            <Text style={styles.btnAvatarText}>+</Text>
+            <Image
+              source={require("../assets/union.png")}
+              resizeMode="contain"
+            />
           </TouchableOpacity>
         </View>
         <Text style={styles.title}>Реєстрація</Text>
