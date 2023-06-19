@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,15 @@ import {
 } from "react-native";
 
 export const RegistrationScreen = () => {
+  const [isInputActive, setIsInputActive] = useState("");
+
+  const onInputActive = (input) => {
+    setIsInputActive(input);
+  };
+  const onInputBlur = () => {
+    setIsInputActive("");
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -28,12 +37,33 @@ export const RegistrationScreen = () => {
         </View>
         <Text style={styles.title}>Реєстрація</Text>
         <View style={styles.inputsList}>
-          <TextInput style={styles.input} placeholder="Логін"></TextInput>
           <TextInput
-            style={styles.input}
+            onFocus={() => onInputActive("login")}
+            onBlur={onInputBlur}
+            style={[
+              styles.input,
+              isInputActive === "login" && styles.inputActive,
+            ]}
+            placeholder="Логін"
+          ></TextInput>
+          <TextInput
+            onFocus={() => onInputActive("email")}
+            onBlur={onInputBlur}
+            style={[
+              styles.input,
+              isInputActive === "email" && styles.inputActive,
+            ]}
             placeholder="Адреса електронної пошти"
           ></TextInput>
-          <TextInput style={styles.input} placeholder="Пароль"></TextInput>
+          <TextInput
+            onFocus={() => onInputActive("password")}
+            onBlur={onInputBlur}
+            style={[
+              styles.input,
+              isInputActive === "password" && styles.inputActive,
+            ]}
+            placeholder="Пароль"
+          ></TextInput>
         </View>
         <TouchableOpacity style={styles.btnRegister}>
           <Text style={styles.textRegister}>Зареєструватися</Text>
@@ -118,6 +148,21 @@ const styles = StyleSheet.create({
     padding: 15,
     maxHeight: 50,
     marginBottom: 16,
+
+    fontSize: 16,
+    lineHeight: 19,
+  },
+
+  inputActive: {
+    borderWidth: 1,
+    borderColor: "#FF6C00",
+    borderRadius: 8,
+    borderStyle: "solid",
+    backgroundColor: "#FFFFFF",
+    padding: 15,
+    maxHeight: 50,
+    marginBottom: 16,
+    color: "#212121",
 
     fontSize: 16,
     lineHeight: 19,
