@@ -139,10 +139,12 @@ const styles = StyleSheet.create({
   btnAvatarText: {
     color: "#FF6C00",
     fontSize: 18,
+    fontFamily: "Roboto-Black",
     lineHeight: 18,
   },
 
   title: {
+    fontFamily: "Roboto-Medium",
     fontWeight: 500,
     fontSize: 30,
     lineHeight: 35,
@@ -162,6 +164,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
 
     fontSize: 16,
+    fontFamily: "Roboto-Regular",
     lineHeight: 19,
   },
 
@@ -177,6 +180,7 @@ const styles = StyleSheet.create({
     color: "#212121",
 
     fontSize: 16,
+    fontFamily: "Roboto-Regular",
     lineHeight: 19,
   },
 
@@ -198,6 +202,7 @@ const styles = StyleSheet.create({
   textRegister: {
     color: "#FFFFFF",
     fontSize: 16,
+    fontFamily: "Roboto-Regular",
     lineHeight: 19,
   },
 

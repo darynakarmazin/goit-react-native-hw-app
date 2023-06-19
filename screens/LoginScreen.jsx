@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 500,
     fontSize: 30,
+    fontFamily: "Roboto-Medium",
     lineHeight: 35,
     textAlign: "center",
     color: "#212121",
@@ -115,6 +116,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
 
     fontSize: 16,
+    fontFamily: "Roboto-Regular",
     lineHeight: 19,
   },
 
@@ -130,6 +132,7 @@ const styles = StyleSheet.create({
     color: "#212121",
 
     fontSize: 16,
+    fontFamily: "Roboto-Regular",
     lineHeight: 19,
   },
 
@@ -151,6 +154,7 @@ const styles = StyleSheet.create({
   textRegister: {
     color: "#FFFFFF",
     fontSize: 16,
+    fontFamily: "Roboto-Regular",
     lineHeight: 19,
   },
 
