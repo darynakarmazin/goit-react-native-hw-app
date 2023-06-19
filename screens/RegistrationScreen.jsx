@@ -45,7 +45,7 @@ export const RegistrationScreen = () => {
               isInputActive === "login" && styles.inputActive,
             ]}
             placeholder="Логін"
-          ></TextInput>
+          />
           <TextInput
             onFocus={() => onInputActive("email")}
             onBlur={onInputBlur}
@@ -54,7 +54,7 @@ export const RegistrationScreen = () => {
               isInputActive === "email" && styles.inputActive,
             ]}
             placeholder="Адреса електронної пошти"
-          ></TextInput>
+          />
           <TextInput
             onFocus={() => onInputActive("password")}
             onBlur={onInputBlur}
@@ -63,7 +63,7 @@ export const RegistrationScreen = () => {
               isInputActive === "password" && styles.inputActive,
             ]}
             placeholder="Пароль"
-          ></TextInput>
+          />
         </View>
         <TouchableOpacity style={styles.btnRegister}>
           <Text style={styles.textRegister}>Зареєструватися</Text>

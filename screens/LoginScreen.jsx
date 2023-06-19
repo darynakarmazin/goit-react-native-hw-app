@@ -36,7 +36,7 @@ export const LoginScreen = () => {
               isInputActive === "email" && styles.inputActive,
             ]}
             placeholder="Адреса електронної пошти"
-          ></TextInput>
+          />
           <TextInput
             onFocus={() => onInputActive("password")}
             onBlur={onInputBlur}
@@ -45,7 +45,7 @@ export const LoginScreen = () => {
               isInputActive === "password" && styles.inputActive,
             ]}
             placeholder="Пароль"
-          ></TextInput>
+          />
         </View>
         <TouchableOpacity style={styles.btnRegister}>
           <Text style={styles.textRegister}>Увійти</Text>
