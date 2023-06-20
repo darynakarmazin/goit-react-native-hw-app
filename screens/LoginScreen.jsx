@@ -14,6 +14,13 @@ import {
 
 export const LoginScreen = () => {
   const [isInputActive, setIsInputActive] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onLogin = () => {
+    console.log("email:", email);
+    console.log("password:", password);
+  };
 
   const onInputActive = (input) => {
     setIsInputActive(input);
@@ -23,13 +30,14 @@ export const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("../assets/photo-bg.png")}
-        resizeMode="cover"
-        style={styles.image}
-      />
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Image
+          source={require("../assets/photo-bg.png")}
+          resizeMode="cover"
+          style={styles.image}
+        />
+
         <KeyboardAvoidingView
           style={styles.container}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -39,6 +47,8 @@ export const LoginScreen = () => {
             <Text style={styles.title}>Увійти</Text>
             <View style={styles.inputsList}>
               <TextInput
+                onChangeText={setEmail}
+                value={email}
                 onFocus={() => onInputActive("email")}
                 onBlur={onInputBlur}
                 style={[
@@ -48,6 +58,8 @@ export const LoginScreen = () => {
                 placeholder="Адреса електронної пошти"
               />
               <TextInput
+                onChangeText={setPassword}
+                value={password}
                 onFocus={() => onInputActive("password")}
                 onBlur={onInputBlur}
                 style={[
@@ -57,7 +69,7 @@ export const LoginScreen = () => {
                 placeholder="Пароль"
               />
             </View>
-            <TouchableOpacity style={styles.btnRegister}>
+            <TouchableOpacity onPress={onLogin} style={styles.btnRegister}>
               <Text style={styles.textRegister}>Увійти</Text>
             </TouchableOpacity>
             <Text style={styles.textLogin}>
@@ -66,8 +78,8 @@ export const LoginScreen = () => {
             </Text>
           </View>
         </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
-    </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

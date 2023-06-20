@@ -14,6 +14,15 @@ import {
 
 export const RegistrationScreen = () => {
   const [isInputActive, setIsInputActive] = useState("");
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onRegistration = () => {
+    console.log("login:", login);
+    console.log("email:", email);
+    console.log("password:", password);
+  };
 
   const onInputActive = (input) => {
     setIsInputActive(input);
@@ -23,13 +32,14 @@ export const RegistrationScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("../assets/photo-bg.png")}
-        resizeMode="cover"
-        style={styles.image}
-      />
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Image
+          source={require("../assets/photo-bg.png")}
+          resizeMode="cover"
+          style={styles.image}
+        />
+
         <KeyboardAvoidingView
           style={styles.container}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -48,6 +58,8 @@ export const RegistrationScreen = () => {
             <Text style={styles.title}>Реєстрація</Text>
             <View style={styles.inputsList}>
               <TextInput
+                onChangeText={setLogin}
+                value={login}
                 onFocus={() => onInputActive("login")}
                 onBlur={onInputBlur}
                 style={[
@@ -57,6 +69,8 @@ export const RegistrationScreen = () => {
                 placeholder="Логін"
               />
               <TextInput
+                onChangeText={setEmail}
+                value={email}
                 onFocus={() => onInputActive("email")}
                 onBlur={onInputBlur}
                 style={[
@@ -66,6 +80,8 @@ export const RegistrationScreen = () => {
                 placeholder="Адреса електронної пошти"
               />
               <TextInput
+                onChangeText={setPassword}
+                value={password}
                 onFocus={() => onInputActive("password")}
                 onBlur={onInputBlur}
                 style={[
@@ -75,14 +91,17 @@ export const RegistrationScreen = () => {
                 placeholder="Пароль"
               />
             </View>
-            <TouchableOpacity style={styles.btnRegister}>
+            <TouchableOpacity
+              onPress={onRegistration}
+              style={styles.btnRegister}
+            >
               <Text style={styles.textRegister}>Зареєструватися</Text>
             </TouchableOpacity>
             <Text style={styles.textLogin}>Вже є акаунт? Увійти</Text>
           </View>
         </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
-    </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
