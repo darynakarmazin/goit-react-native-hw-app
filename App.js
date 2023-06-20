@@ -12,6 +12,10 @@ export default function App() {
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
   });
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       {/* <RegistrationScreen /> */}
