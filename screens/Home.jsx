@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
@@ -30,14 +30,42 @@ const Home = () => {
         name="PostsScreen"
         component={PostsScreen}
         options={{
-          headerShown: false,
+          title: "Публікації",
+          headerStyle: {
+            backgroundColor: "#FFFFFF",
+          },
+          headerTitleStyle: {
+            fontWeight: 500,
+            fontSize: 17,
+            lineHeight: 22,
+          },
+          headerRight: () => (
+            <Image
+              source={require("../assets/log-out.png")}
+              style={{ marginRight: 16 }}
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={{
-          headerShown: false,
+          title: "Створити публікацію",
+          headerStyle: {
+            backgroundColor: "#FFFFFF",
+          },
+          headerTitleStyle: {
+            fontWeight: 500,
+            fontSize: 17,
+            lineHeight: 22,
+          },
+          headerLeft: () => (
+            <Image
+              source={require("../assets/arrow-left.png")}
+              style={{ marginLeft: 16 }}
+            />
+          ),
         }}
       />
       <Tabs.Screen

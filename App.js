@@ -36,7 +36,13 @@ export default function App() {
             headerShown: false,
           }}
         />
-        <MainStack.Screen name="Home" component={Home} />
+        <MainStack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerShown: false,
+          }}
+        />
       </MainStack.Navigator>
     </NavigationContainer>
   );
