@@ -1,30 +1,42 @@
 import React from "react";
-import { Image, StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
+import { Feather } from "@expo/vector-icons";
 
 const Tabs = createBottomTabNavigator();
 
 const Home = () => {
   return (
     <Tabs.Navigator
-      initialRouteName="PostsScreen"
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+      screenOptions={{
+        headerTitleAlign: "center",
 
-          if (route.name === "Profile") {
-            iconName = focused
-              ? "ios-information-circle"
-              : "ios-information-circle-outline";
-          } else if (route.name === "Settings") {
-            iconName = focused ? "ios-list-box" : "ios-list";
-          }
-          // return <Ionicons name={iconName} size={size} color={color} />;
+        headerStyle: {
+          borderBottomWidth: 1,
+          borderColor: "#E5E5E5",
         },
-      })}
+
+        tabBarShowLabel: false,
+        tabBarActiveBackgroundColor: "#FF6C00",
+        tabBarActiveTintColor: "#ffffff",
+        tabBarInactiveTintColor: "rgba(33, 33, 33, 0.8)",
+
+        tabBarStyle: {
+          height: 83,
+          paddingTop: 10,
+          paddingBottom: 34,
+          paddingHorizontal: 80,
+          borderTopWidth: 1,
+          borderColor: "#E5E5E5",
+        },
+
+        tabBarItemStyle: {
+          borderRadius: 20,
+        },
+      }}
     >
       <Tabs.Screen
         name="PostsScreen"
@@ -40,10 +52,12 @@ const Home = () => {
             lineHeight: 22,
           },
           headerRight: () => (
-            <Image
-              source={require("../assets/log-out.png")}
-              style={{ marginRight: 16 }}
-            />
+            <TouchableOpacity style={{ marginRight: 16, marginBottom: 10 }}>
+              <Feather name="log-out" size={24} color="#BDBDBD" />
+            </TouchableOpacity>
+          ),
+          tabBarIcon: ({ color }) => (
+            <Feather name="grid" size={24} color={color} />
           ),
         }}
       />
@@ -61,10 +75,15 @@ const Home = () => {
             lineHeight: 22,
           },
           headerLeft: () => (
-            <Image
-              source={require("../assets/arrow-left.png")}
-              style={{ marginLeft: 16 }}
-            />
+            <TouchableOpacity
+              style={{ marginLeft: 16, marginBottom: 10 }}
+              onPress={() => navigation.goBack()}
+            >
+              <Feather name="arrow-left" size={24} color="#212121" />
+            </TouchableOpacity>
+          ),
+          tabBarIcon: ({ color }) => (
+            <Feather name="plus" size={24} color={color} />
           ),
         }}
       />
@@ -73,6 +92,10 @@ const Home = () => {
         component={ProfileScreen}
         options={{
           headerShown: false,
+
+          tabBarIcon: ({ color }) => (
+            <Feather name="user" size={24} color={color} />
+          ),
         }}
       />
     </Tabs.Navigator>
