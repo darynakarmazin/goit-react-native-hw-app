@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
@@ -13,6 +14,8 @@ import {
 } from "react-native";
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
+
   const [isInputActive, setIsInputActive] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +23,7 @@ const LoginScreen = () => {
   const onLogin = () => {
     console.log("email:", email);
     console.log("password:", password);
+    navigation.navigate("Home");
   };
 
   const onInputActive = (input) => {
@@ -72,10 +76,15 @@ const LoginScreen = () => {
             <TouchableOpacity onPress={onLogin} style={styles.btnRegister}>
               <Text style={styles.textRegister}>Увійти</Text>
             </TouchableOpacity>
-            <Text style={styles.textLogin}>
-              Немає акаунту?{" "}
-              <Text style={styles.textLoginLink}>Зареєструватися</Text>
-            </Text>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("RegistrationScreen")}
+            >
+              <Text style={styles.textLogin}>
+                Немає акаунту?{" "}
+                <Text style={styles.textLoginLink}>Зареєструватися</Text>
+              </Text>
+            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -173,10 +182,12 @@ const styles = StyleSheet.create({
   textLogin: {
     color: "#1B4371",
     textAlign: "center",
+    alignItems: "baseline",
     marginBottom: 45,
   },
 
   textLoginLink: {
+    color: "#1B4371",
     textDecorationLine: "underline",
   },
 });

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
@@ -13,6 +14,8 @@ import {
 } from "react-native";
 
 const RegistrationScreen = () => {
+  const navigation = useNavigation();
+
   const [isInputActive, setIsInputActive] = useState("");
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
@@ -22,6 +25,7 @@ const RegistrationScreen = () => {
     console.log("login:", login);
     console.log("email:", email);
     console.log("password:", password);
+    navigation.navigate("Home");
   };
 
   const onInputActive = (input) => {
@@ -97,7 +101,11 @@ const RegistrationScreen = () => {
             >
               <Text style={styles.textRegister}>Зареєструватися</Text>
             </TouchableOpacity>
-            <Text style={styles.textLogin}>Вже є акаунт? Увійти</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("LoginScreen")}
+            >
+              <Text style={styles.textLogin}>Вже є акаунт? Увійти</Text>
+            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </View>
