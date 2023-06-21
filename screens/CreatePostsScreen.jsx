@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
+import { TextInput } from "react-native-gesture-handler";
 
 const CreatePostsScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -58,13 +59,25 @@ const CreatePostsScreen = () => {
           </TouchableOpacity>
         </View>
       </Camera>
+      <TextInput style={[styles.input]} placeholder="Назва..." />
+      <TextInput style={[styles.input]} placeholder="Місцевість..." />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  camera: { flex: 1 },
+  container: {
+    flex: 1,
+    paddingTop: 32,
+    paddingRight: 16,
+    paddingBottom: 34,
+    paddingLeft: 16,
+  },
+  camera: {
+    width: "100%",
+    height: 240,
+    borderRadius: 8,
+  },
   photoView: {
     flex: 1,
     backgroundColor: "transparent",
