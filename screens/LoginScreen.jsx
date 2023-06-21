@@ -12,7 +12,7 @@ import {
   Keyboard,
 } from "react-native";
 
-export const LoginScreen = () => {
+const LoginScreen = () => {
   const [isInputActive, setIsInputActive] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -180,3 +180,5 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
 });
+
+export default LoginScreen;

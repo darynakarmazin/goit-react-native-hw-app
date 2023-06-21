@@ -12,7 +12,7 @@ import {
   Platform,
 } from "react-native";
 
-export const RegistrationScreen = () => {
+const RegistrationScreen = () => {
   const [isInputActive, setIsInputActive] = useState("");
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
@@ -230,3 +230,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+export default RegistrationScreen;
