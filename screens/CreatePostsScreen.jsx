@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Keyboard,
+  KeyboardAvoidingView,
+} from "react-native";
 import { Camera } from "expo-camera";
+import * as Location from "expo-location";
+import { FontAwesome, Ionicons, Feather } from "@expo/vector-icons";
+
 import * as MediaLibrary from "expo-media-library";
 import { TextInput } from "react-native-gesture-handler";
 
@@ -8,6 +18,14 @@ const CreatePostsScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [comment, setComment] = useState("");
+  const [locationName, setLocationName] = useState("");
+
+  const keyboardHide = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+  };
 
   useEffect(() => {
     (async () => {
@@ -27,40 +45,62 @@ const CreatePostsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type} ref={setCameraRef}>
-        <View style={styles.photoView}>
-          <TouchableOpacity
-            style={styles.flipContainer}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}
-          >
-            <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
-              {" "}
-              Flip{" "}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={async () => {
-              if (cameraRef) {
-                const { uri } = await cameraRef.takePictureAsync();
-                await MediaLibrary.createAssetAsync(uri);
-              }
-            }}
-          >
-            <View style={styles.takePhotoOut}>
-              <View style={styles.takePhotoInner}></View>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </Camera>
-      <TextInput style={[styles.input]} placeholder="Назва..." />
-      <TextInput style={[styles.input]} placeholder="Місцевість..." />
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? -165 : -165}
+      >
+        <Camera style={styles.camera} type={type} ref={setCameraRef}>
+          <View style={styles.photoView}>
+            <TouchableOpacity
+              style={styles.flipContainer}
+              onPress={() => {
+                setType(
+                  type === Camera.Constants.Type.back
+                    ? Camera.Constants.Type.front
+                    : Camera.Constants.Type.back
+                );
+              }}
+            >
+              <Text style={{ fontSize: 18, marginBottom: 0, color: "white" }}>
+                {" "}
+                Flip{" "}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={async () => {
+                if (cameraRef) {
+                  const { uri } = await cameraRef.takePictureAsync();
+                  await MediaLibrary.createAssetAsync(uri);
+                }
+              }}
+            >
+              <View style={styles.takePhotoOut}>
+                <FontAwesome name="camera" size={40} color="#BDBDBD" />
+              </View>
+            </TouchableOpacity>
+          </View>
+        </Camera>
+        <TextInput
+          placeholderTextColor={"#BDBDBD"}
+          placeholder="Назва..."
+          style={[styles.input]}
+          value={comment}
+          onChangeText={(value) => setComment(value)}
+          onBlur={keyboardHide}
+          onFocus={() => setIsShowKeyboard(true)}
+        ></TextInput>
+        <TextInput
+          placeholderTextColor={"#BDBDBD"}
+          placeholder="Місцевість..."
+          style={[styles.input]}
+          value={locationName}
+          onChangeText={(value) => setLocationName(value)}
+          onBlur={keyboardHide}
+          onFocus={() => setIsShowKeyboard(true)}
+        ></TextInput>
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -92,22 +132,11 @@ const styles = StyleSheet.create({
   button: { alignSelf: "center" },
 
   takePhotoOut: {
-    borderWidth: 2,
-    borderColor: "white",
     height: 50,
     width: 50,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 50,
-  },
-
-  takePhotoInner: {
-    borderWidth: 2,
-    borderColor: "white",
-    height: 40,
-    width: 40,
-    backgroundColor: "white",
     borderRadius: 50,
   },
 });
