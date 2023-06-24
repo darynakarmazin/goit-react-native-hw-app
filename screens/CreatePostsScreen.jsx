@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -16,6 +16,7 @@ import {
   TextInput,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 const CreatePostsScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -23,6 +24,8 @@ const CreatePostsScreen = () => {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [comment, setComment] = useState("");
   const [locationName, setLocationName] = useState("");
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
@@ -59,8 +62,7 @@ const CreatePostsScreen = () => {
                 );
               }}
             >
-              <Text style={{ fontSize: 18, marginBottom: 0, color: "white" }}>
-                {" "}
+              <Text style={{ fontSize: 18, marginBottom: -10, color: "white" }}>
                 Flip{" "}
               </Text>
             </TouchableOpacity>
@@ -74,7 +76,7 @@ const CreatePostsScreen = () => {
               }}
             >
               <View style={styles.takePhotoOut}>
-                <FontAwesome name="camera" size={40} color="#BDBDBD" />
+                <FontAwesome name="camera" size={24} color="#BDBDBD" />
               </View>
             </TouchableOpacity>
           </View>
@@ -93,6 +95,16 @@ const CreatePostsScreen = () => {
           value={locationName}
           onChangeText={(value) => setLocationName(value)}
         ></TextInput>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("PostsScreen")}
+          style={styles.btnRegister}
+        >
+          <Text style={styles.textRegister}>Опубліковати</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.deleteBtn}>
+          <Feather name="trash-2" size={24} color="#BDBDBD" />
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>
     /* </TouchableWithoutFeedback> */
@@ -127,12 +139,44 @@ const styles = StyleSheet.create({
   button: { alignSelf: "center" },
 
   takePhotoOut: {
-    height: 50,
-    width: 50,
+    backgroundColor: "rgba(255, 255, 255, 0.30)",
+    height: 60,
+    width: 60,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 50,
+    marginBottom: 90,
+  },
+
+  btnRegister: {
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center",
+    backgroundColor: "#FF6C00",
+    borderRadius: 100,
+    width: "100%",
+    height: 51,
+    marginBottom: 16,
+  },
+
+  textRegister: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontFamily: "Roboto-Regular",
+    lineHeight: 19,
+  },
+
+  deleteBtn: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: 70,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "#F6F6F6",
+    marginTop: 50,
   },
 });
 

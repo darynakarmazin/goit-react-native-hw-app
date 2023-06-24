@@ -1,10 +1,13 @@
 import React from "react";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import LoginScreen from "./screens/LoginScreen";
+import CommentsScreen from "./screens/CommentsScreen";
 import Home from "./screens/Home";
 import { useFonts } from "expo-font";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Feather } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const MainStack = createStackNavigator();
 
@@ -14,6 +17,8 @@ export default function App() {
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
   });
+
+  // const navigation = useNavigation();
 
   if (!fontsLoaded) {
     return null;
@@ -41,6 +46,29 @@ export default function App() {
           component={Home}
           options={{
             headerShown: false,
+          }}
+        />
+        <MainStack.Screen
+          name="CommentsScreen"
+          component={CommentsScreen}
+          options={{
+            title: "Коментарі",
+            headerStyle: {
+              backgroundColor: "#FFFFFF",
+            },
+            headerTitleStyle: {
+              fontWeight: 500,
+              fontSize: 17,
+              lineHeight: 22,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                style={{ marginLeft: 16, marginBottom: 10 }}
+                // onPress={() => navigation.goBack()}
+              >
+                <Feather name="arrow-left" size={24} color="#212121" />
+              </TouchableOpacity>
+            ),
           }}
         />
       </MainStack.Navigator>
