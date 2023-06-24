@@ -103,23 +103,25 @@ const CreatePostsScreen = () => {
           value={comment}
           onChangeText={(value) => setComment(value)}
         ></TextInput>
-        <TextInput
-          placeholderTextColor={"#BDBDBD"}
-          placeholder="Місцевість..."
-          style={styles.input}
-          value={locationName}
-          onChangeText={(value) => setLocationName(value)}
-        ></TextInput>
-        <TouchableOpacity
-          style={styles.locationBtn}
-          onPress={() =>
-            navigation.navigate("MapScreen", {
-              location: location.coords,
-            })
-          }
-        >
-          <Ionicons name="location-outline" size={24} color="#BDBDBD" />
-        </TouchableOpacity>
+        <View style={styles.wrapper}>
+          <TextInput
+            placeholderTextColor={"#BDBDBD"}
+            placeholder="Місцевість..."
+            style={styles.inputLocation}
+            value={locationName}
+            onChangeText={(value) => setLocationName(value)}
+          ></TextInput>
+          <TouchableOpacity
+            style={styles.locationBtn}
+            onPress={() =>
+              navigation.navigate("MapScreen", {
+                location: location.coords,
+              })
+            }
+          >
+            <Ionicons name="location-outline" size={24} color="#BDBDBD" />
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity
           onPress={() => navigation.navigate("PostsScreen")}
           style={styles.btnRegister}
@@ -201,7 +203,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor: "#F6F6F6",
-    marginTop: 50,
+    marginTop: 80,
   },
 
   text: {
@@ -216,9 +218,41 @@ const styles = StyleSheet.create({
 
   locationBtn: {
     position: "absolute",
-    top: "65%",
+    top: 10,
     width: 25,
     height: 25,
+  },
+
+  wrapper: {
+    position: "relative",
+  },
+
+  input: {
+    borderBottomWidth: 1,
+    fontSize: 16,
+    borderBottomColor: "#E8E8E8",
+    paddingTop: 15,
+    paddingBottom: 16,
+    fontFamily: "RobotoMedium",
+    fontStyle: "normal",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#212121",
+  },
+
+  inputLocation: {
+    borderBottomWidth: 1,
+    fontSize: 16,
+    borderBottomColor: "#E8E8E8",
+    paddingTop: 15,
+    paddingBottom: 16,
+    fontFamily: "RobotoMedium",
+    fontStyle: "normal",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#212121",
+    paddingLeft: 26,
+    marginBottom: 32,
   },
 });
 
