@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   KeyboardAvoidingView,
+  Image,
 } from "react-native";
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
@@ -62,6 +63,7 @@ const CreatePostsScreen = () => {
       >
         <Camera style={styles.camera} type={type} ref={setCameraRef}>
           <View style={styles.photoView}>
+            <Image source={{ uri: photo }} style={styles.previewPhoto} />
             <TouchableOpacity
               style={styles.flipContainer}
               onPress={() => {
