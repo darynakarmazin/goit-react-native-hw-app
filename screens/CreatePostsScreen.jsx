@@ -24,6 +24,8 @@ const CreatePostsScreen = () => {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [comment, setComment] = useState("");
   const [locationName, setLocationName] = useState("");
+  const [location, setLocation] = useState(null);
+  const [photo, setPhoto] = useState("");
 
   const navigation = useNavigation();
 
@@ -35,6 +37,15 @@ const CreatePostsScreen = () => {
       setHasPermission(status === "granted");
     })();
   }, []);
+
+  (async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      console.log("Permission to access location was denied");
+    }
+    let location = await Location.getCurrentPositionAsync({});
+    setLocation(location);
+  })();
 
   if (hasPermission === null) {
     return <View />;
@@ -81,6 +92,11 @@ const CreatePostsScreen = () => {
             </TouchableOpacity>
           </View>
         </Camera>
+        {photo ? (
+          <Text style={styles.text}>Редагувати фото</Text>
+        ) : (
+          <Text style={styles.text}>Завантажте фото</Text>
+        )}
         <TextInput
           placeholderTextColor={"#BDBDBD"}
           placeholder="Назва..."
@@ -95,6 +111,16 @@ const CreatePostsScreen = () => {
           value={locationName}
           onChangeText={(value) => setLocationName(value)}
         ></TextInput>
+        <TouchableOpacity
+          style={styles.locationBtn}
+          onPress={() =>
+            navigation.navigate("MapScreen", {
+              location: location.coords,
+            })
+          }
+        >
+          <Ionicons name="location-outline" size={24} color="#BDBDBD" />
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate("PostsScreen")}
           style={styles.btnRegister}
@@ -177,6 +203,23 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#F6F6F6",
     marginTop: 50,
+  },
+
+  text: {
+    marginTop: 8,
+    fontFamily: "RobotoRegular",
+    fontStyle: "normal",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#BDBDBD",
+    marginBottom: 32,
+  },
+
+  locationBtn: {
+    position: "absolute",
+    top: "65%",
+    width: 25,
+    height: 25,
   },
 });
 

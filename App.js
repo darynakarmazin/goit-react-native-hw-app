@@ -2,6 +2,7 @@ import React from "react";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import LoginScreen from "./screens/LoginScreen";
 import CommentsScreen from "./screens/CommentsScreen";
+import MapScreen from "./screens/MapScreen";
 import Home from "./screens/Home";
 import { useFonts } from "expo-font";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
@@ -13,11 +14,10 @@ const MainStack = createStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    "Roboto-Black": require("./assets/fonts/Roboto-Black.ttf"),
-    "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
+    "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
+    "Roboto-Black": require("./assets/fonts/Roboto-Black.ttf"),
   });
-
   // const navigation = useNavigation();
 
   if (!fontsLoaded) {
@@ -69,6 +69,13 @@ export default function App() {
                 <Feather name="arrow-left" size={24} color="#212121" />
               </TouchableOpacity>
             ),
+          }}
+        />
+        <MainStack.Screen
+          name="MapScreen"
+          component={MapScreen}
+          options={{
+            headerShown: false,
           }}
         />
       </MainStack.Navigator>
