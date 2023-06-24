@@ -4,7 +4,6 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  Keyboard,
   KeyboardAvoidingView,
 } from "react-native";
 import { Camera } from "expo-camera";
@@ -38,6 +37,13 @@ const CreatePostsScreen = () => {
     })();
   }, []);
 
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
+
   (async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -46,13 +52,6 @@ const CreatePostsScreen = () => {
     let location = await Location.getCurrentPositionAsync({});
     setLocation(location);
   })();
-
-  if (hasPermission === null) {
-    return <View />;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
 
   return (
     // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
