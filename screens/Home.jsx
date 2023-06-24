@@ -5,10 +5,12 @@ import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Tabs = createBottomTabNavigator();
 
 const Home = () => {
+  const navigation = useNavigation();
   return (
     <Tabs.Navigator
       screenOptions={{

@@ -12,20 +12,17 @@ import * as Location from "expo-location";
 import { FontAwesome, Ionicons, Feather } from "@expo/vector-icons";
 
 import * as MediaLibrary from "expo-media-library";
-import { TextInput } from "react-native-gesture-handler";
+import {
+  TextInput,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 
 const CreatePostsScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [comment, setComment] = useState("");
   const [locationName, setLocationName] = useState("");
-
-  const keyboardHide = () => {
-    setIsShowKeyboard(false);
-    Keyboard.dismiss();
-  };
 
   useEffect(() => {
     (async () => {
@@ -44,9 +41,9 @@ const CreatePostsScreen = () => {
   }
 
   return (
+    // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <KeyboardAvoidingView
-        style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? -165 : -165}
       >
@@ -85,23 +82,20 @@ const CreatePostsScreen = () => {
         <TextInput
           placeholderTextColor={"#BDBDBD"}
           placeholder="Назва..."
-          style={[styles.input]}
+          style={styles.input}
           value={comment}
           onChangeText={(value) => setComment(value)}
-          onBlur={keyboardHide}
-          onFocus={() => setIsShowKeyboard(true)}
         ></TextInput>
         <TextInput
           placeholderTextColor={"#BDBDBD"}
           placeholder="Місцевість..."
-          style={[styles.input]}
+          style={styles.input}
           value={locationName}
           onChangeText={(value) => setLocationName(value)}
-          onBlur={keyboardHide}
-          onFocus={() => setIsShowKeyboard(true)}
         ></TextInput>
       </KeyboardAvoidingView>
     </View>
+    /* </TouchableWithoutFeedback> */
   );
 };
 
@@ -117,6 +111,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 240,
     borderRadius: 8,
+    marginBottom: 8,
   },
   photoView: {
     flex: 1,
