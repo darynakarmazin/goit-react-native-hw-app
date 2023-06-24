@@ -63,7 +63,9 @@ const CreatePostsScreen = () => {
       >
         <Camera style={styles.camera} type={type} ref={setCameraRef}>
           <View style={styles.photoView}>
-            <Image source={{ uri: photo }} style={styles.previewPhoto} />
+            {photo && (
+              <Image source={{ uri: photo }} style={styles.previewPhoto} />
+            )}
             <TouchableOpacity
               style={styles.flipContainer}
               onPress={() => {
@@ -82,8 +84,9 @@ const CreatePostsScreen = () => {
               style={styles.button}
               onPress={async () => {
                 if (cameraRef) {
-                  const { uri } = await cameraRef.takePictureAsync();
-                  await MediaLibrary.createAssetAsync(uri);
+                  const photo = await cameraRef.takePictureAsync();
+                  setPhoto(photo.uri);
+                  await MediaLibrary.createAssetAsync(photo.uri);
                 }
               }}
             >
