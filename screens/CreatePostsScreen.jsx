@@ -46,11 +46,11 @@ const CreatePostsScreen = () => {
   }
 
   (async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
+    const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       console.log("Permission to access location was denied");
     }
-    let location = await Location.getCurrentPositionAsync({});
+    const location = await Location.getCurrentPositionAsync({});
     setLocation(location);
   })();
 
@@ -58,44 +58,82 @@ const CreatePostsScreen = () => {
     // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === "ios" ? "padding" : ""}
         keyboardVerticalOffset={Platform.OS === "ios" ? -165 : -165}
       >
-        <Camera style={styles.camera} type={type} ref={setCameraRef}>
-          <View style={styles.photoView}>
-            {photo && (
+        {photo ? (
+          <Camera style={styles.camera} type={type} ref={setCameraRef}>
+            <View style={styles.photoView}>
               <Image source={{ uri: photo }} style={styles.previewPhoto} />
-            )}
-            <TouchableOpacity
-              style={styles.flipContainer}
-              onPress={() => {
-                setType(
-                  type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-              }}
-            >
-              <Text style={{ fontSize: 18, marginBottom: -10, color: "white" }}>
-                Flip{" "}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={async () => {
-                if (cameraRef) {
-                  const photo = await cameraRef.takePictureAsync();
-                  setPhoto(photo.uri);
-                  await MediaLibrary.createAssetAsync(photo.uri);
-                }
-              }}
-            >
-              <View style={styles.takePhotoOut}>
-                <FontAwesome name="camera" size={24} color="#BDBDBD" />
-              </View>
-            </TouchableOpacity>
-          </View>
-        </Camera>
+
+              <TouchableOpacity
+                style={styles.flipContainer}
+                onPress={() => {
+                  setType(
+                    type === Camera.Constants.Type.back
+                      ? Camera.Constants.Type.front
+                      : Camera.Constants.Type.back
+                  );
+                }}
+              >
+                <Text
+                  style={{ fontSize: 18, marginBottom: -10, color: "white" }}
+                >
+                  Flip{" "}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={async () => {
+                  if (cameraRef) {
+                    const photo = await cameraRef.takePictureAsync();
+                    setPhoto(photo.uri);
+                    await MediaLibrary.createAssetAsync(photo.uri);
+                  }
+                }}
+              >
+                <View style={styles.takePhotoOut}>
+                  <FontAwesome name="camera" size={24} color="#BDBDBD" />
+                </View>
+              </TouchableOpacity>
+            </View>
+          </Camera>
+        ) : (
+          <Camera style={styles.camera} type={type} ref={setCameraRef}>
+            <View style={styles.photoView}>
+              <TouchableOpacity
+                style={styles.flipContainer}
+                onPress={() => {
+                  setType(
+                    type === Camera.Constants.Type.back
+                      ? Camera.Constants.Type.front
+                      : Camera.Constants.Type.back
+                  );
+                }}
+              >
+                <Text
+                  style={{ fontSize: 18, marginBottom: -10, color: "white" }}
+                >
+                  Flip{" "}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={async () => {
+                  if (cameraRef) {
+                    const photo = await cameraRef.takePictureAsync();
+                    setPhoto(photo.uri);
+                    await MediaLibrary.createAssetAsync(photo.uri);
+                  }
+                }}
+              >
+                <View style={styles.takePhotoOut}>
+                  <FontAwesome name="camera" size={24} color="#BDBDBD" />
+                </View>
+              </TouchableOpacity>
+            </View>
+          </Camera>
+        )}
         {photo ? (
           <Text style={styles.text}>Редагувати фото</Text>
         ) : (
@@ -258,6 +296,13 @@ const styles = StyleSheet.create({
     color: "#212121",
     paddingLeft: 26,
     marginBottom: 32,
+  },
+
+  previewPhoto: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    borderRadius: 8,
   },
 });
 
