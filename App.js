@@ -1,7 +1,7 @@
 import React from "react";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import LoginScreen from "./screens/LoginScreen";
-import CommentsScreen from "./screens/CommentsScreen";
+import CommentsScreen from "./screens/CommentsScreen/CommentsScreen";
 import MapScreen from "./screens/MapScreen";
 import Home from "./screens/Home";
 import { useFonts } from "expo-font";

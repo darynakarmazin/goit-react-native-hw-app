@@ -17,8 +17,13 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUID } from "../../redux/auth/authSelectors";
+import { addPost } from "../../redux/posts/postsOperations";
 
 const CreatePostsScreen = () => {
+  const dispatch = useDispatch();
+  const uid = useSelector(selectUID);
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -54,6 +59,31 @@ const CreatePostsScreen = () => {
     setLocation(location);
   })();
 
+  const takePhoto = async () => {
+    const photo = await camera.takePictureAsync();
+
+    setPost((state) => ({
+      ...state,
+      image: photo.uri,
+    }));
+  };
+
+  const onChangePhoto = () => {
+    setPost((state) => ({ ...state, image: "", location: null }));
+  };
+
+  const onInputChange = (value) => {
+    setPost((state) => ({ ...state, ...value }));
+  };
+
+  const formSubmitHandler = () => {
+    const newPost = {
+      ...post,
+      id: uuid.v4(8),
+    };
+    dispatch(addPost({ uid, newPost }));
+    navigation.navigate("Home");
+  };
   return (
     // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
@@ -169,7 +199,9 @@ const CreatePostsScreen = () => {
           onPress={() => navigation.navigate("PostsScreen")}
           style={styles.btnRegister}
         >
-          <Text style={styles.textRegister}>Опубліковати</Text>
+          <Text pressHandler={formSubmitHandler} style={styles.textRegister}>
+            Опубліковати
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.deleteBtn}>
