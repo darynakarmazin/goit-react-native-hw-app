@@ -12,8 +12,11 @@ import {
   Keyboard,
   Platform,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { register } from "../redux/auth/authOperations";
 
 const RegistrationScreen = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const [isInputActive, setIsInputActive] = useState("");
@@ -22,9 +25,16 @@ const RegistrationScreen = () => {
   const [password, setPassword] = useState("");
 
   const onRegistration = () => {
-    console.log("login:", login);
-    console.log("email:", email);
-    console.log("password:", password);
+    dispatch(
+      register({
+        login,
+        email,
+        password,
+      })
+    );
+    // console.log("login:", login);
+    // console.log("email:", email);
+    // console.log("password:", password);
     navigation.navigate("Home");
   };
 
@@ -63,6 +73,7 @@ const RegistrationScreen = () => {
             <View style={styles.inputsList}>
               <TextInput
                 onChangeText={setLogin}
+                type="text"
                 value={login}
                 onFocus={() => onInputActive("login")}
                 onBlur={onInputBlur}
@@ -74,6 +85,7 @@ const RegistrationScreen = () => {
               />
               <TextInput
                 onChangeText={setEmail}
+                type="email"
                 value={email}
                 onFocus={() => onInputActive("email")}
                 onBlur={onInputBlur}
@@ -85,6 +97,7 @@ const RegistrationScreen = () => {
               />
               <TextInput
                 onChangeText={setPassword}
+                type="password"
                 value={password}
                 onFocus={() => onInputActive("password")}
                 onBlur={onInputBlur}

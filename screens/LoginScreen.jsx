@@ -12,8 +12,11 @@ import {
   Platform,
   Keyboard,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { logIn } from "../redux/auth/authOperations";
 
 const LoginScreen = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const [isInputActive, setIsInputActive] = useState("");
@@ -21,8 +24,16 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
 
   const onLogin = () => {
-    console.log("email:", email);
-    console.log("password:", password);
+    dispatch(
+      logIn({
+        email,
+        password,
+      })
+    );
+
+    // console.log("email:", email);
+    // console.log("password:", password);
+
     navigation.navigate("Home");
   };
 
